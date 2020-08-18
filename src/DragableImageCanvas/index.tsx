@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Canvas from './Canvas';
-import useCanvas from '../hooks/useCanvas';
+import useCanvas from './hooks/useCanvas';
 import { Image as ImageInterface } from './types';
 
 interface Props {
