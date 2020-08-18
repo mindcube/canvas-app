@@ -68,5 +68,3 @@ Please email us if you have any questions along the way. We will try our best to
 ## Submission
 
 Please submit your completed assignment via email to the recruiter who sent it to you. You can submit your assignment as a zip file attachment, or you can push it to a GitHub repository and include a link to the respository. We want to thank you again for your time and for your interest in joing the engineering team at Streamlabs!
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
