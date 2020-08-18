@@ -27,3 +27,10 @@ There wasn't much to question about this assignment, especially with the great i
 - Do you feel like this assignment has an appropriate level of difficulty?
 
 Definitely - it was a fun challenge for me and it required some research + trial and error. I now know a lot more about HTML5 Canvas API and how it works.
+
+## Log
+
+- Worked on project setup
+- Created POC ReactJS Canvas component
+- Implement draggable boundries within the Canvas
+- Cleanup
