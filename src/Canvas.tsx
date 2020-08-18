@@ -42,7 +42,6 @@ const Canvas: React.FC = () => {
   const [imageElements, setImageElements] = React.useState<
     HTMLImageElement[] | null
   >(null);
-  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const canvas: HTMLCanvasElement = canvasRef.current as HTMLCanvasElement;
@@ -144,8 +143,6 @@ const Canvas: React.FC = () => {
     }
   };
 
-  const [boundryHit, setBoundryhit] = React.useState(false);
-
   const handleMouseMove = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
   ) => {
@@ -166,13 +163,11 @@ const Canvas: React.FC = () => {
 
       // top boundry hit
       if (e.nativeEvent.offsetY < Math.abs(relTop)) {
-        console.log('top hit');
         dragTarget.y = 0;
       }
 
       // left boundry hit
       if (e.nativeEvent.offsetX < Math.abs(relLeft)) {
-        console.log('left hit');
         dragTarget.x = 0;
       }
 
@@ -181,13 +176,11 @@ const Canvas: React.FC = () => {
         e.nativeEvent.offsetX + relRight + dragTarget.x >
         canvasRef.current.clientWidth
       ) {
-        console.log('right hit');
         dragTarget.x = canvasRef.current.clientWidth - dragTarget.w;
       }
 
       // bottom boundry hit
       if (dragTarget.y + dragTarget.h > canvasRef.current.clientHeight) {
-        console.log('bottom hit');
         dragTarget.y = canvasRef.current.clientHeight - dragTarget.h;
       }
     }
@@ -198,7 +191,6 @@ const Canvas: React.FC = () => {
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
   ) => {
     if (dragTarget) dragTarget.borderColor = 'rgba(0, 255, 0, 0)';
-    if (boundryHit) setBoundryhit(false);
 
     dragTarget = null;
     isMouseDown = false;
