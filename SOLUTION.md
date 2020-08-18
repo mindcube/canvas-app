@@ -34,3 +34,5 @@ Definitely - it was a fun challenge for me and it required some research + trial
 - Created POC ReactJS Canvas component
 - Implement draggable boundries within the Canvas
 - Cleanup
+- Create custom useCanvas
+- Chore: optimize for better usage of react hooks and code readability
