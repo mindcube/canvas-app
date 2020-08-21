@@ -1,8 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
+import styled from 'styled-components';
 import Canvas from './Canvas';
 import useCanvas from './hooks/useCanvas';
-import { Image as ImageInterface } from './types';
+import { Image as ImageInterface, UserAction } from './types';
+
+const UndoButton = styled.button`
+  font-size: 30px;
+  margin-top: 15px;
+  padding: 5px 10px;
+  border-style: none;
+`;
 
 interface Props {
   imageSources: ImageInterface[];
@@ -19,6 +27,7 @@ interface Props {
 const DraggableImageCanvas: React.FC<Props> = ({ imageSources }: Props) => {
   const [images, setImages] = React.useState<HTMLImageElement[] | null>(null);
   const [sourceImages, setSourceImages] = React.useState(imageSources);
+  const [userActions, setUserActions] = React.useState<UserAction[]>();
 
   const draw = (context: CanvasRenderingContext2D | null) => {
     if (context && images) {
@@ -71,12 +80,37 @@ const DraggableImageCanvas: React.FC<Props> = ({ imageSources }: Props) => {
     );
   }, []);
 
+  const handleUndoClick = () => {
+    if (userActions && userActions.length) {
+      setSourceImages((prev) => {
+        const lastUserCoords = userActions[userActions.length - 1];
+
+        prev[lastUserCoords.imageIndex].x = lastUserCoords.imageX;
+        prev[lastUserCoords.imageIndex].y = lastUserCoords.imageY;
+
+        return [...prev];
+      });
+      setUserActions(
+        userActions.filter((item, index) => index !== userActions.length - 1),
+      );
+    }
+  };
+
   return (
-    <Canvas
-      canvasRef={canvasRef}
-      sourceImages={imageSources}
-      setSourceImages={setSourceImages}
-    />
+    <>
+      <Canvas
+        canvasRef={canvasRef}
+        sourceImages={imageSources}
+        setSourceImages={setSourceImages}
+        setUserActions={setUserActions}
+      />
+      <UndoButton
+        disabled={!userActions || userActions.length === 0}
+        onClick={handleUndoClick}
+      >
+        Undo
+      </UndoButton>
+    </>
   );
 };
 

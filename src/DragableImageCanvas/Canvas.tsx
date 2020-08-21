@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { Image } from './types';
+import { Image, UserAction } from './types';
 
 interface Props {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   sourceImages: Image[];
   setSourceImages: React.Dispatch<React.SetStateAction<Image[]>>;
+  setUserActions: React.Dispatch<
+    React.SetStateAction<UserAction[] | undefined>
+  >;
 }
 
 let isMouseDown = false;
@@ -15,6 +18,7 @@ const Canvas: React.FC<Props> = ({
   canvasRef,
   sourceImages,
   setSourceImages,
+  setUserActions,
 }: Props) => {
   const [dragTargetIndex, setDragTargetIndex] = React.useState<number>(-1);
 
@@ -29,6 +33,33 @@ const Canvas: React.FC<Props> = ({
     );
   };
 
+  const saveUserAction = (
+    targetIndex: number,
+    imageX: number,
+    imageY: number,
+  ) => {
+    setUserActions((prev) => {
+      if (prev && prev.length) {
+        return [
+          ...(prev as UserAction[]),
+          {
+            imageIndex: targetIndex,
+            imageX: imageX,
+            imageY: imageY,
+          },
+        ];
+      }
+
+      return [
+        {
+          imageIndex: targetIndex,
+          imageX: imageX,
+          imageY: imageY,
+        },
+      ];
+    });
+  };
+
   const inActiveArea = (x: number, y: number) => {
     let active = false;
     for (let i = 0; i < sourceImages.length; i++) {
@@ -39,9 +70,10 @@ const Canvas: React.FC<Props> = ({
         y >= image.y &&
         y <= image.y + image.h
       ) {
-        setDragTargetIndex(i);
         active = true;
+        setDragTargetIndex(i);
         highlightBorder(i, true);
+        saveUserAction(i, image.x, image.y);
         break;
       }
     }
@@ -114,7 +146,9 @@ const Canvas: React.FC<Props> = ({
   const handleMouseUp = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
   ) => {
-    if (dragTargetIndex > -1) highlightBorder(dragTargetIndex, false);
+    if (dragTargetIndex > -1) {
+      highlightBorder(dragTargetIndex, false);
+    }
     setDragTargetIndex(-1);
 
     isMouseDown = false;

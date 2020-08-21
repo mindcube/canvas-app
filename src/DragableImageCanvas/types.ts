@@ -6,3 +6,9 @@ export interface Image {
   h: number;
   w: number;
 }
+
+export interface UserAction {
+  imageIndex: number;
+  imageX: number;
+  imageY: number;
+}
