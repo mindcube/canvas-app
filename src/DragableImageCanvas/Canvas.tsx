@@ -4,7 +4,6 @@ import { Image } from './types';
 interface Props {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   sourceImages: Image[];
-  draw: () => void;
   setSourceImages: React.Dispatch<React.SetStateAction<Image[]>>;
 }
 
@@ -15,7 +14,6 @@ let startY: number | null = null;
 const Canvas: React.FC<Props> = ({
   canvasRef,
   sourceImages,
-  draw,
   setSourceImages,
 }: Props) => {
   const [dragTargetIndex, setDragTargetIndex] = React.useState<number>(-1);

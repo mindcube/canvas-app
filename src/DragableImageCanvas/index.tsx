@@ -74,7 +74,6 @@ const DraggableImageCanvas: React.FC<Props> = ({ imageSources }: Props) => {
   return (
     <Canvas
       canvasRef={canvasRef}
-      draw={() => {}}
       sourceImages={imageSources}
       setSourceImages={setSourceImages}
     />
