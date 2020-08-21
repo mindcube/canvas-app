@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import Canvas from './Canvas';
 import useCanvas from './hooks/useCanvas';
@@ -52,24 +53,22 @@ const DraggableImageCanvas: React.FC<Props> = ({ imageSources }: Props) => {
   React.useEffect(() => {
     const canvas: HTMLCanvasElement = canvasRef.current as HTMLCanvasElement;
     const context = canvas.getContext('2d');
-    const imageElements: HTMLImageElement[] = [];
 
-    // initial load for each image
-    sourceImages.forEach((image) => {
-      const img = new Image();
-      img.src = image.src;
-      img.onload = () => {
-        if (context) {
-          context.drawImage(img, image.x, image.y, image.w, image.h);
-          context.strokeStyle = image.borderColor;
-          context.lineWidth = 2;
-          context.strokeRect(image.x, image.y, image.w, image.h);
-        }
-        imageElements.push(img);
-      };
-    });
-
-    setImages(imageElements);
+    setImages(
+      sourceImages.map((image) => {
+        const img = new Image();
+        img.src = image.src;
+        img.onload = () => {
+          if (context) {
+            context.drawImage(img, image.x, image.y, image.w, image.h);
+            context.strokeStyle = image.borderColor;
+            context.lineWidth = 2;
+            context.strokeRect(image.x, image.y, image.w, image.h);
+          }
+        };
+        return img;
+      }),
+    );
   }, []);
 
   return (
