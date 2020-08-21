@@ -2,6 +2,7 @@
 import * as React from 'react';
 import Canvas from './Canvas';
 import useCanvas from './hooks/useCanvas';
+import useStorageState from './hooks/useStorageState';
 import { Image as ImageInterface } from './types';
 
 interface Props {
@@ -18,7 +19,7 @@ interface Props {
  */
 const DraggableImageCanvas: React.FC<Props> = ({ imageSources }: Props) => {
   const [images, setImages] = React.useState<HTMLImageElement[] | null>(null);
-  const [sourceImages, setSourceImages] = React.useState(imageSources);
+  const { sourceImages, setSourceImages } = useStorageState(imageSources);
 
   const draw = (context: CanvasRenderingContext2D | null) => {
     if (context && images) {
@@ -74,7 +75,7 @@ const DraggableImageCanvas: React.FC<Props> = ({ imageSources }: Props) => {
   return (
     <Canvas
       canvasRef={canvasRef}
-      sourceImages={imageSources}
+      sourceImages={sourceImages}
       setSourceImages={setSourceImages}
     />
   );
