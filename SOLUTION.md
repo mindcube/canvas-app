@@ -37,3 +37,5 @@ Definitely - it was a fun challenge for me and it required some research + trial
 - Create custom useCanvas hook
 - Chore: optimize for better usage of react hooks and code readability
 - Chore: misc file + folder cleanup
+- BONUS: Add undo buttons + actions
+- BONUS: Add localStorage capabilities

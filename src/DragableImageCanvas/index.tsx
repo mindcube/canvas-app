@@ -101,7 +101,7 @@ const DraggableImageCanvas: React.FC<Props> = ({ imageSources }: Props) => {
     <>
       <Canvas
         canvasRef={canvasRef}
-        sourceImages={imageSources}
+        sourceImages={sourceImages}
         setSourceImages={setSourceImages}
         setUserActions={setUserActions}
       />
