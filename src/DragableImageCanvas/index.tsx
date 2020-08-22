@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Canvas from './Canvas';
 import useCanvas from './hooks/useCanvas';
+import useStorageState from './hooks/useStorageState';
 import { Image as ImageInterface, UserAction } from './types';
 
 const UndoButton = styled.button`
@@ -26,8 +27,8 @@ interface Props {
  */
 const DraggableImageCanvas: React.FC<Props> = ({ imageSources }: Props) => {
   const [images, setImages] = React.useState<HTMLImageElement[] | null>(null);
-  const [sourceImages, setSourceImages] = React.useState(imageSources);
   const [userActions, setUserActions] = React.useState<UserAction[]>();
+  const { sourceImages, setSourceImages } = useStorageState(imageSources);
 
   const draw = (context: CanvasRenderingContext2D | null) => {
     if (context && images) {

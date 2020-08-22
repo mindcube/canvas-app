@@ -90,6 +90,7 @@ const Canvas: React.FC<Props> = ({
   const handleMouseDown = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
   ) => {
+    console.log('handleMouseDown');
     if (canvasRef && canvasRef.current) {
       startX = e.nativeEvent.offsetX - canvasRef.current.clientLeft;
       startY = e.nativeEvent.offsetY - canvasRef.current.clientTop;
@@ -100,6 +101,7 @@ const Canvas: React.FC<Props> = ({
   const handleMouseMove = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
   ) => {
+    console.log('handleMouseMove');
     if (!isMouseDown) return;
     if (canvasRef && canvasRef.current && !!startX && !!startY) {
       const dragTarget = sourceImages[dragTargetIndex as number];
@@ -157,6 +159,7 @@ const Canvas: React.FC<Props> = ({
   const handleMouseOut = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
   ) => {
+    console.log('handleMouseOut');
     handleMouseUp(e);
   };
 
